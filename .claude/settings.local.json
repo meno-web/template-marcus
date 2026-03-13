@@ -24,7 +24,9 @@
       "Bash(node:*)",
       "Bash(do python3:*)",
       "Bash(do:*)",
-      "Skill(build-component)"
+      "Skill(build-component)",
+      "Bash(grep -r \"Youtube\\\\|youtube\\\\|YouTube\" /Users/maciejkociela/Documents/Meno/meno-web/template-marcus --include=\"*.json\" --include=\"*.js\" 2>/dev/null | head -20)",
+      "Bash(ls -la /Users/maciejkociela/Documents/Meno/meno-web/template-marcus/ | grep -E \"\\\\.\\(json|config|md\\)$\")"
     ]
   }
 }

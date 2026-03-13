@@ -136,7 +136,7 @@
       "fade": {
         "type": "string",
         "default": ""
-      }
+      },
     }
   }
 }
