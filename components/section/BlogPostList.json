@@ -42,8 +42,8 @@
           },
           "children": [
             {
-              "type": "node",
-              "tag": "a",
+              "type": "link",
+              "href": "{{item._url}}",
               "style": {
                 "base": {
                   "display": "grid",
@@ -64,10 +64,6 @@
                   "gridTemplateColumns": "1fr",
                   "gap": "16px"
                 }
-              },
-              "attributes": {
-                "href": "/blog/{{post.slug}}",
-                "fade": "{{0.4+itemIndex*0.2}}"
               },
               "children": [
                 {
