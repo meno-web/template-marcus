@@ -29,7 +29,7 @@
               "children": [
                 {
                   "type": "component",
-                  "component": "Heading",
+                  "component": "QuoteText",
                   "props": {
                     "text": "{{quote}}",
                     "maxWidth": "100%",
