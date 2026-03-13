@@ -1,30 +1,5 @@
 {
   "component": {
-    "interface": {
-      "text": {
-        "type": "string",
-        "default": "Link"
-      },
-      "variant": {
-        "type": "select",
-        "default": "primary",
-        "options": [
-          "primary",
-          "secondary"
-        ]
-      },
-      "isMarginTop": {
-        "type": "boolean",
-        "default": false
-      },
-      "link": {
-        "type": "link"
-      },
-      "fade": {
-        "type": "string",
-        "default": ""
-      }
-    },
     "structure": {
       "type": "link",
       "href": {
@@ -94,7 +69,7 @@
                 "_mapping": true,
                 "prop": "variant",
                 "values": {
-                  "primary": "var(--text-100)",
+                  "primary": "var(--accent-100)",
                   "secondary": "var(--bg-100)"
                 }
               },
@@ -102,8 +77,8 @@
                 "_mapping": true,
                 "prop": "variant",
                 "values": {
-                  "primary": "var(--text-100)",
-                  "secondary": "var(--border-100)"
+                  "primary": "var(--accent-100)",
+                  "secondary": "var(--bg-100)"
                 }
               },
               "top": "0"
@@ -137,7 +112,31 @@
           }
         }
       ]
+    },
+    "interface": {
+      "text": {
+        "type": "string",
+        "default": "Link"
+      },
+      "variant": {
+        "type": "select",
+        "default": "primary",
+        "options": [
+          "primary",
+          "secondary"
+        ]
+      },
+      "isMarginTop": {
+        "type": "boolean",
+        "default": false
+      },
+      "link": {
+        "type": "link"
+      },
+      "fade": {
+        "type": "string",
+        "default": ""
+      }
     }
-  },
-  "_category": "ui"
+  }
 }
