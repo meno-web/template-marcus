@@ -108,7 +108,8 @@
           "type": "component",
           "component": "Modal",
           "props": {
-            "modalId": "reel"
+            "modalId": "reel",
+            "isOpen": false
           },
           "children": [
             {
