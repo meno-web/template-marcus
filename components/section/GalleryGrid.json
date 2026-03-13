@@ -187,7 +187,7 @@
                         "base": {
                           "position": "absolute",
                           "width": "72px",
-                          "height": "172px",
+                          "height": "72px",
                           "borderRadius": "50%",
                           "backgroundColor": "var(--accent)",
                           "display": "flex",
