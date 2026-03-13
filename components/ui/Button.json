@@ -70,7 +70,7 @@
                 "prop": "variant",
                 "values": {
                   "primary": "var(--accent-100)",
-                  "secondary": "var(--bg-100)"
+                  "secondary": "var(--bg-300)"
                 }
               },
               "borderColor": {
@@ -78,7 +78,7 @@
                 "prop": "variant",
                 "values": {
                   "primary": "var(--accent-100)",
-                  "secondary": "var(--bg-100)"
+                  "secondary": "var(--bg-300)"
                 }
               },
               "top": "0"
