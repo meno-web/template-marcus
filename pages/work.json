@@ -15,6 +15,38 @@
       },
       {
         "type": "component",
+        "component": "GalleryGrid",
+        "props": {
+          "theme": "muted",
+          "subtitle": "Selected Work",
+          "title": "Recent <span>projects</span>",
+          "text": "A selection of films, commercials, and music videos from recent collaborations.",
+          "items": [
+            {
+              "image": "/images/pasted-image-1773393938666.webp",
+              "title": "Brand Campaign",
+              "text": "Commercial — Directed & Shot"
+            },
+            {
+              "image": "/images/pasted-image-1773393474799.webp",
+              "title": "Short Film",
+              "text": "Narrative — Cinematography"
+            },
+            {
+              "image": "/images/pasted-image-1773394149639.webp",
+              "title": "Music Video",
+              "text": "Music Video — Director of Photography"
+            },
+            {
+              "image": "/images/pasted-image-1773394322253.webp",
+              "title": "Documentary",
+              "text": "Documentary — Director & Editor"
+            }
+          ]
+        }
+      },
+      {
+        "type": "component",
         "component": "Section",
         "props": {
           "theme": "muted"
