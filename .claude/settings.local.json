@@ -26,7 +26,9 @@
       "Bash(do:*)",
       "Skill(build-component)",
       "Bash(grep -r \"Youtube\\\\|youtube\\\\|YouTube\" /Users/maciejkociela/Documents/Meno/meno-web/template-marcus --include=\"*.json\" --include=\"*.js\" 2>/dev/null | head -20)",
-      "Bash(ls -la /Users/maciejkociela/Documents/Meno/meno-web/template-marcus/ | grep -E \"\\\\.\\(json|config|md\\)$\")"
+      "Bash(ls -la /Users/maciejkociela/Documents/Meno/meno-web/template-marcus/ | grep -E \"\\\\.\\(json|config|md\\)$\")",
+      "Bash(curl -s http://localhost:8080 | tr '>' '\\\\n' | grep -B0 'Watch the reel' | head -5)",
+      "Bash(curl -s http://localhost:8080 | tr '<' '\\\\n' | grep -A1 'Watch the reel' | head -10)"
     ]
   }
 }

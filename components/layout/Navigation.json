@@ -288,17 +288,23 @@
                   },
                   "children": [
                     {
-                      "type": "component",
-                      "component": "Button",
-                      "props": {
-                        "isMarginTop": false,
-                        "text": "Watch the reel",
-                        "variant": "primary",
-                        "link": ""
-                      },
+                      "type": "node",
+                      "tag": "div",
                       "attributes": {
                         "open-modal": "reel"
-                      }
+                      },
+                      "children": [
+                        {
+                          "type": "component",
+                          "component": "Button",
+                          "props": {
+                            "isMarginTop": false,
+                            "text": "Watch the reel",
+                            "variant": "primary",
+                            "link": ""
+                          }
+                        }
+                      ]
                     }
                   ]
                 }
