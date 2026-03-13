@@ -42,7 +42,9 @@
                     "type": "node",
                     "tag": "div",
                     "style": {
-                      "base": {},
+                      "base": {
+                        "fontSize": "16px"
+                      },
                       "tablet": {},
                       "mobile": {}
                     },
