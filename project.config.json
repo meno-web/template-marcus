@@ -15,12 +15,6 @@
   },
   "fonts": [
     {
-      "path": "/fonts/outfit-variable.woff2",
-      "family": "Outfit",
-      "weight": 100,
-      "weightMax": 900
-    },
-    {
       "path": "/fonts/instrument-serif-400.woff2",
       "family": "Instrument Serif",
       "weight": 400
