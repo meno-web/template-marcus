@@ -39,16 +39,27 @@
                     }
                   },
                   {
-                    "type": "component",
-                    "component": "Heading",
-                    "props": {
-                      "text": "<span>Telling stories through light and motion</span>",
-                      "maxWidth": "100%",
-                      "align": "left",
-                      "size": "1",
-                      "tag": "2",
-                      "fade": "0.2"
-                    }
+                    "type": "node",
+                    "tag": "div",
+                    "style": {
+                      "base": {},
+                      "tablet": {},
+                      "mobile": {}
+                    },
+                    "children": [
+                      {
+                        "type": "component",
+                        "component": "Heading",
+                        "props": {
+                          "text": "<span>Telling stories through light and motion</span>",
+                          "maxWidth": "100%",
+                          "align": "left",
+                          "size": "1",
+                          "tag": "2",
+                          "fade": "0.2"
+                        }
+                      }
+                    ]
                   },
                   {
                     "type": "component",
