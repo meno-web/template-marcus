@@ -41,7 +41,7 @@
                 "children": [
                   {
                     "type": "link",
-                    "href": "/work/{{study.slug}}",
+                    "href": "",
                     "style": {
                       "base": {
                         "position": "relative",

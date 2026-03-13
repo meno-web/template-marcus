@@ -2,10 +2,10 @@
   "_id": "welcome-to-our-blog",
   "_filename": "welcome-to-our-blog",
   "_createdAt": "2026-01-15T10:00:00.000Z",
-  "_updatedAt": "2026-03-01T13:18:17.348Z",
-  "title": "Welcome to Our Blog",
+  "_updatedAt": "2026-03-13T10:00:00.000Z",
+  "title": "Why Every Frame Is a Decision",
   "slug": "welcome-to-our-blog",
-  "excerpt": "We're excited to launch our new blog. Here you'll find insights, updates, and stories from our team.",
+  "excerpt": "A look at the intentional choices behind cinematography — from lens selection to lighting setups — and why each frame matters more than you think.",
   "content": {
     "type": "doc",
     "content": [
@@ -17,7 +17,7 @@
         "content": [
           {
             "type": "text",
-            "text": "Whether you've just discovered us or you're a returning visitor, this quick guide will help you navigate and find exactly what you're looking for."
+            "text": "People often talk about filmmaking as storytelling, and that's true — but the story isn't just in the script. It's in the way light falls across a face, the focal length that separates a subject from their surroundings, and the color temperature that tells you whether a moment feels warm or clinical. Every frame is a stack of deliberate decisions."
           }
         ]
       },
@@ -30,7 +30,7 @@
         "content": [
           {
             "type": "text",
-            "text": "Step 1: Explore"
+            "text": "The Lens Shapes the Story"
           }
         ]
       },
@@ -42,7 +42,7 @@
         "content": [
           {
             "type": "text",
-            "text": "Take some time to browse around. Check out our main pages to understand what we do and how we can help. Don't hesitate to dig into the details—that's where the good stuff often hides."
+            "text": "A wide-angle lens doesn't just show more of the room — it stretches perspective, creates tension, makes spaces feel larger or more distorted. A long lens compresses depth, isolates your subject, and draws the viewer into an intimate moment. These aren't technical choices. They're emotional ones. Before I pick up a camera, I ask myself: what should the audience feel right now?"
           }
         ]
       },
@@ -55,7 +55,7 @@
         "content": [
           {
             "type": "text",
-            "text": "Step 2: Connect"
+            "text": "Lighting as Language"
           }
         ]
       },
@@ -67,7 +67,7 @@
         "content": [
           {
             "type": "text",
-            "text": "Have questions or want to learn more? Reach out to us. We're always happy to chat and help you find the right path forward."
+            "text": "I've spent entire prep days working through lighting setups for a single scene. Hard light for confrontation, soft diffusion for vulnerability, practical sources for authenticity. The best lighting is the kind audiences never consciously notice — it just makes them lean in. On a recent documentary shoot, we worked almost entirely with available light, shaping it with negative fill and bounce. The result felt raw and honest, which was exactly what the story needed."
           }
         ]
       },
@@ -80,7 +80,7 @@
         "content": [
           {
             "type": "text",
-            "text": "Step 3: Stay Updated"
+            "text": "Color Tells You Where You Are"
           }
         ]
       },
@@ -92,7 +92,7 @@
         "content": [
           {
             "type": "text",
-            "text": "Keep an eye on this blog for the latest updates, tips, and insights. We regularly share content that we think you'll find valuable."
+            "text": "Color grading is where everything comes together. It's not about slapping a preset on footage — it's about creating a visual world that supports the narrative. Desaturated tones for a gritty short film, warm golden hues for nostalgia, cool blues for isolation. I approach the grade the same way I approach a shoot: what does this moment need to communicate?"
           }
         ]
       },
@@ -104,7 +104,7 @@
         "content": [
           {
             "type": "text",
-            "text": "Ready to dive in? Let's get started."
+            "text": "This is what I'll be writing about here — the craft behind the camera, the choices that shape what you see on screen, and the process of turning a vision into something real."
           }
         ]
       }
