@@ -186,8 +186,8 @@
                       "style": {
                         "base": {
                           "position": "absolute",
-                          "width": "64px",
-                          "height": "64px",
+                          "width": "80px",
+                          "height": "100px",
                           "borderRadius": "50%",
                           "backgroundColor": "var(--accent)",
                           "display": "flex",

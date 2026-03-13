@@ -1,5 +1,30 @@
 {
   "component": {
+    "interface": {
+      "text": {
+        "type": "string",
+        "default": "Link"
+      },
+      "variant": {
+        "type": "select",
+        "default": "primary",
+        "options": [
+          "primary",
+          "secondary"
+        ]
+      },
+      "isMarginTop": {
+        "type": "boolean",
+        "default": false
+      },
+      "link": {
+        "type": "link"
+      },
+      "fade": {
+        "type": "string",
+        "default": ""
+      }
+    },
     "structure": {
       "type": "link",
       "href": {
@@ -112,31 +137,7 @@
           }
         }
       ]
-    },
-    "interface": {
-      "text": {
-        "type": "string",
-        "default": "Link"
-      },
-      "variant": {
-        "type": "select",
-        "default": "primary",
-        "options": [
-          "primary",
-          "secondary"
-        ]
-      },
-      "isMarginTop": {
-        "type": "boolean",
-        "default": false
-      },
-      "link": {
-        "type": "link"
-      },
-      "fade": {
-        "type": "string",
-        "default": ""
-      },
     }
-  }
+  },
+  "_category": "ui"
 }

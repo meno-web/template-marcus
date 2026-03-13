@@ -55,7 +55,9 @@
             "column1Links": [
               {
                 "text": "Filmography",
-                "href": "/"
+                "href": {
+                  "href": "/work"
+                }
               },
               {
                 "text": "Commercials",
@@ -74,7 +76,9 @@
               },
               {
                 "text": "About",
-                "href": "#about"
+                "href": {
+                  "href": "/about"
+                }
               },
               {
                 "text": "Equipment",
@@ -99,6 +103,34 @@
             "copyright": "© 2026 Marcus Cole. All rights reserved.",
             "theme": "dark"
           }
+        },
+        {
+          "type": "component",
+          "component": "Modal",
+          "props": {
+            "modalId": "reel"
+          },
+          "children": [
+            {
+              "type": "node",
+              "tag": "div",
+              "style": {
+                "base": {
+                  "position": "relative",
+                  "width": "90vw",
+                  "maxWidth": "960px",
+                  "aspectRatio": "16/9",
+                  "backgroundColor": "#000",
+                  "borderRadius": "8px",
+                  "overflow": "hidden"
+                }
+              },
+              "attributes": {
+                "data-video-src": "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+              },
+              "children": []
+            }
+          ]
         }
       ]
     },
