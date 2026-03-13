@@ -1,6 +1,5 @@
 {
   "component": {
-    "interface": {},
     "structure": {
       "type": "component",
       "component": "Grid",
@@ -22,8 +21,7 @@
           "children": [
             {
               "type": "link",
-              "href": "/work/",
-              "label": "Item",
+              "href": "{{item._url}}",
               "style": {
                 "base": {
                   "position": "relative",
@@ -177,6 +175,7 @@
           ]
         }
       ]
-    }
+    },
+    "interface": {}
   }
 }
