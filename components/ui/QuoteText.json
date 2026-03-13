@@ -2,7 +2,7 @@
   "component": {
     "structure": {
       "type": "node",
-      "tag": "h{{tag === \"size\" ? size : tag}}",
+      "tag": "p",
       "label": "Text",
       "style": {
         "base": {
@@ -58,7 +58,9 @@
           "fontFamily": "Instrument Serif"
         },
         "tablet": {},
-        "mobile": {}
+        "mobile": {
+          "fontSize": "32px"
+        }
       },
       "attributes": {
         "fade": "{{fade}}",
