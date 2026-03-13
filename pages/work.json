@@ -1,0 +1,139 @@
+{
+  "root": {
+    "type": "component",
+    "component": "Layout",
+    "children": [
+      {
+        "type": "component",
+        "component": "PageHeaderCentered",
+        "props": {
+          "theme": "dark",
+          "subtitle": "Portfolio",
+          "title": "Selected <span>work</span>",
+          "text": "A curated collection of films, commercials, music videos, and branded content — each project shaped by intentional storytelling and cinematic craft."
+        }
+      },
+      {
+        "type": "component",
+        "component": "Section",
+        "props": {
+          "theme": "muted"
+        },
+        "children": [
+          {
+            "type": "component",
+            "component": "Grid",
+            "props": {
+              "columns": "2",
+              "gap": "24",
+              "fade": "0.4"
+            },
+            "children": [
+              {
+                "type": "list",
+                "sourceType": "collection",
+                "source": "case-studies",
+                "itemAs": "study",
+                "sort": {
+                  "field": "publishedAt",
+                  "direction": "desc"
+                },
+                "children": [
+                  {
+                    "type": "link",
+                    "href": "/work/{{study.slug}}",
+                    "style": {
+                      "base": {
+                        "position": "relative",
+                        "borderRadius": "12px",
+                        "overflow": "hidden",
+                        "aspectRatio": "4/3",
+                        "display": "block",
+                        "textDecoration": "none",
+                        "color": "inherit"
+                      }
+                    },
+                    "children": [
+                      {
+                        "type": "node",
+                        "tag": "img",
+                        "style": {
+                          "base": {
+                            "width": "100%",
+                            "height": "100%",
+                            "objectFit": "cover",
+                            "transition": "transform 0.3s ease"
+                          }
+                        },
+                        "attributes": {
+                          "src": "{{study.image}}",
+                          "alt": "{{study.title}}"
+                        }
+                      },
+                      {
+                        "type": "node",
+                        "tag": "div",
+                        "style": {
+                          "base": {
+                            "position": "absolute",
+                            "bottom": "0",
+                            "left": "0",
+                            "right": "0",
+                            "padding": "24px",
+                            "background": "linear-gradient(transparent, rgba(0,0,0,0.7))"
+                          }
+                        },
+                        "children": [
+                          {
+                            "type": "node",
+                            "tag": "h3",
+                            "style": {
+                              "base": {
+                                "color": "#ffffff",
+                                "fontSize": "18px",
+                                "margin": "0 0 4px 0",
+                                "fontWeight": "600"
+                              }
+                            },
+                            "children": "{{study.title}}"
+                          },
+                          {
+                            "type": "node",
+                            "tag": "p",
+                            "style": {
+                              "base": {
+                                "color": "rgba(255,255,255,0.7)",
+                                "fontSize": "14px",
+                                "margin": "0"
+                              }
+                            },
+                            "children": "{{study.category}}"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "component",
+        "component": "CTACentered",
+        "props": {
+          "theme": "dark",
+          "title": "Let's create something <span>together</span>",
+          "text": "Currently booking projects for 2026. Reach out to discuss your next film, commercial, or campaign.",
+          "buttonText": "Start a conversation",
+          "secondaryButtonText": ""
+        }
+      }
+    ]
+  },
+  "meta": {
+    "title": "Work — Marcus Cole",
+    "description": "Selected films, commercials, music videos, and branded content by Marcus Cole."
+  }
+}

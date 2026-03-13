@@ -1,0 +1,16 @@
+{
+  "root": {
+    "type": "component",
+    "component": "Layout",
+    "children": [
+      {
+        "type": "component",
+        "component": "BlogPostList"
+      }
+    ]
+  },
+  "meta": {
+    "title": "Blog",
+    "description": "Latest articles and updates"
+  }
+}

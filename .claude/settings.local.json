@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(build-page)",
+      "Bash(python3:*)",
+      "WebSearch",
+      "WebFetch(domain:lucide.dev)",
+      "WebFetch(domain:unpkg.com)",
+      "Bash(find:*)",
+      "Bash(curl:*)",
+      "Skill(meno-docs)",
+      "Bash(cd:*)",
+      "Bash(ls:*)",
+      "Bash(sed:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(xxd:*)",
+      "Bash(pip3 install:*)",
+      "WebFetch(domain:swiperjs.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(xargs rm:*)",
+      "WebFetch(domain:www.embla-carousel.com)",
+      "Bash(tr ;:*)",
+      "Bash(wc:*)",
+      "Bash(node:*)",
+      "Bash(do python3:*)",
+      "Bash(do:*)",
+      "Skill(build-component)"
+    ]
+  }
+}
