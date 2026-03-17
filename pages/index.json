@@ -31,7 +31,6 @@
                   {
                     "type": "component",
                     "component": "Subtitle",
-                    "if": "Filmmaker & Cinematographer",
                     "props": {
                       "text": "Filmmaker & Cinematographer",
                       "align": "left",
@@ -39,29 +38,16 @@
                     }
                   },
                   {
-                    "type": "node",
-                    "tag": "div",
-                    "style": {
-                      "base": {
-                        "fontSize": "16px"
-                      },
-                      "tablet": {},
-                      "mobile": {}
-                    },
-                    "children": [
-                      {
-                        "type": "component",
-                        "component": "Heading",
-                        "props": {
-                          "text": "<span>Telling stories through light and motion</span>",
-                          "maxWidth": "100%",
-                          "align": "left",
-                          "size": "1",
-                          "tag": "2",
-                          "fade": "0.2"
-                        }
-                      }
-                    ]
+                    "type": "component",
+                    "component": "Heading",
+                    "props": {
+                      "text": "<span>Telling stories through light and motion</span>",
+                      "maxWidth": "100%",
+                      "align": "left",
+                      "size": "1",
+                      "tag": "2",
+                      "fade": "0.2"
+                    }
                   },
                   {
                     "type": "component",
