@@ -12,7 +12,9 @@
     "content": [
       {
         "type": "paragraph",
-        "attrs": { "textAlign": null },
+        "attrs": {
+          "textAlign": null
+        },
         "content": [
           {
             "type": "text",
@@ -22,14 +24,22 @@
       },
       {
         "type": "heading",
-        "attrs": { "textAlign": null, "level": 2 },
+        "attrs": {
+          "textAlign": null,
+          "level": 2
+        },
         "content": [
-          { "type": "text", "text": "The Brief" }
+          {
+            "type": "text",
+            "text": "The Brief"
+          }
         ]
       },
       {
         "type": "paragraph",
-        "attrs": { "textAlign": null },
+        "attrs": {
+          "textAlign": null
+        },
         "content": [
           {
             "type": "text",
@@ -39,14 +49,22 @@
       },
       {
         "type": "heading",
-        "attrs": { "textAlign": null, "level": 2 },
+        "attrs": {
+          "textAlign": null,
+          "level": 2
+        },
         "content": [
-          { "type": "text", "text": "The Approach" }
+          {
+            "type": "text",
+            "text": "The Approach"
+          }
         ]
       },
       {
         "type": "paragraph",
-        "attrs": { "textAlign": null },
+        "attrs": {
+          "textAlign": null
+        },
         "content": [
           {
             "type": "text",
