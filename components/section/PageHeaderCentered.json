@@ -41,6 +41,14 @@
                 "isMarginBottom": true,
                 "fade": "0.2"
               }
+            },
+            {
+              "type": "component",
+              "component": "Button",
+              "props": {
+                "isMarginTop": true,
+                "text": "Click me"
+              }
             }
           ]
         }
