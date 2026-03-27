@@ -54,7 +54,7 @@
                     "component": "Text",
                     "if": "Cinematography, directing, and visual storytelling for films, commercials, and brands that demand authenticity.",
                     "props": {
-                      "text": "Cinematography, directing, and visual storytelling for films, commercials, and brands that demand authenticity.",
+                      "text": "Cinematography, directing, and visual storytelling for films, commercials, and brands that demand authenticity",
                       "size": "large",
                       "align": "left",
                       "maxWidth": "100%",
