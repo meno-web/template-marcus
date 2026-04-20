@@ -1,6 +1,26 @@
-<!-- MENO_DOCS_VERSION: 1.5 -->
-<!-- MENO_DOCS_VERSION: 1.2 -->
+<!-- MENO_DOCS_VERSION: 2.0.1 -->
 # Meno Core Documentation
+
+## Quick Start
+
+A blank Meno project ships with:
+- `project.config.json` — `baseComponent: "Layout"` is pre-wired
+- `colors.json` — minimal `light` theme (`text`, `bg`, `muted`, `border`)
+- `enums.json` — empty `{}` (add enums as needed)
+- `variables.json` — empty `{ "variables": [] }` (add CSS design tokens as needed)
+- `components/Layout.json` — a minimal wrapper component with a single slot
+- `pages/index.json` — empty page wrapping `Layout`
+- `images/`, `fonts/` — empty asset folders
+
+**First steps when asked to build something:**
+1. Read `.claude/docs/meno/examples.md` for copy-ready Layout / Navigation / Hero / CMS patterns.
+2. Build components by creating `components/{Name}.json` (use the examples as a starting point).
+3. Fill `pages/{name}.json` with a `root` that uses `type: "component"`, `component: "Layout"` and section components as children.
+4. Add images to `/images/` and reference them with absolute paths: `/images/hero.webp`.
+
+**Do not assume** `components.config.json` exists — blank projects do not ship it. List the `components/` directory directly to discover what's available.
+
+---
 
 ## Creating Components
 
@@ -65,7 +85,7 @@ Properties: `tag` (required), `style`, `attributes`, `children`, `label`, `inter
   "children": [...]
 }
 ```
-Properties: `component` (required), `props`, `children`, `attributes`
+Properties: `component` (required), `props`, `children`
 
 **Styling**: Don't add `style` directly. Use props mapped to styles via `_mapping`.
 
@@ -111,6 +131,26 @@ Properties: `html` (required), `style`, `attributes`, `label`
 ### 6. List (`type: "list"`)
 Iterate over prop arrays or CMS collections:
 
+**No styles on list nodes.** List nodes have no `style` or `interactiveStyles` — they are pure iteration (like React's `map()`). Wrap the list in a `type: "node"` parent for container styles; style a `type: "node"` inside `children` for per-item styles.
+
+```json
+{
+  "type": "node",
+  "tag": "ul",
+  "style": { "base": { "display": "grid", "gap": "16px" } },
+  "children": [
+    {
+      "type": "list",
+      "sourceType": "prop",
+      "source": "items",
+      "children": [
+        { "type": "node", "tag": "li", "style": { "base": { "padding": "8px" } }, "children": "{{item.title}}" }
+      ]
+    }
+  ]
+}
+```
+
 **Prop-based:**
 ```json
 {
@@ -146,7 +186,26 @@ Iterate over prop arrays or CMS collections:
 - `limit`, `offset` - Pagination
 - Collection-only: `filter`, `sort`, `items`, `excludeCurrentItem`
 
-**Template variables:** `{{item.field}}`, `{{itemIndex}}`, `{{itemFirst}}`, `{{itemLast}}`
+**Template variables:** `{{item.field}}`, `{{item._url}}` (auto-computed page URL for CMS items), `{{itemIndex}}`, `{{itemFirst}}`, `{{itemLast}}`
+
+**Linking each item to its page** (CMS collections only) — wrap each item in a `link` node with `href: "{{item._url}}"` (or `{{<itemAs>._url}}` if renamed). `_url` is auto-computed from the collection schema's `urlPattern`; never write it to the item.
+```json
+{
+  "type": "list",
+  "sourceType": "collection",
+  "source": "posts",
+  "itemAs": "post",
+  "children": [
+    {
+      "type": "link",
+      "href": "{{post._url}}",
+      "children": [
+        { "type": "node", "tag": "h3", "children": "{{post.title}}" }
+      ]
+    }
+  ]
+}
+```
 
 ### 7. Locale List (`type: "locale-list"`)
 Language switcher based on project locales:
@@ -173,24 +232,81 @@ Properties: `displayType` ("code"|"name"|"nativeName"), `showFlag`, `showCurrent
 | `select` | Dropdown | `{ "type": "select", "options": ["a", "b"], "default": "a" }` |
 | `link` | URL with target | `{ "type": "link", "default": { "href": "/" } }` |
 | `file` | File upload | `{ "type": "file", "accept": "image/*", "default": "" }` |
-| `rich-text` | HTML content | `{ "type": "rich-text", "default": "" }` |
+| `rich-text` | HTML content | `{ "type": "rich-text", "default": "", "editor": "basic" }` |
+| `embed` | Raw HTML/SVG string | `{ "type": "embed", "default": "<svg>...</svg>" }` |
+| `list` | Array of structured items | `{ "type": "list", "itemSchema": { "title": { "type": "string" } } }` |
 
 **CRITICAL: There is NO `"image"` type!** Use `file` with `accept: "image/*"`
+
+**`list` prop** — used for arrays of structured items (e.g., feature cards, testimonials). Define the per-item shape under `itemSchema`. In the structure, render with a `list` node whose `sourceType` is `"prop"` and `source` matches the prop name.
+
+**`rich-text` editor** — `"basic"` (headings + inline) or `"extended"` (full toolbar).
+
+### Writing rich-text values inline
+
+`rich-text` prop values accept raw HTML when written by hand in page/component JSON. The SSR pipeline emits them unescaped. Supported inline patterns:
+
+| Pattern | Use |
+|---------|-----|
+| `<strong>text</strong>` | Bold |
+| `<em>text</em>` | Italic |
+| `<a href="/about">text</a>` | Internal link |
+| `<a href="https://…" target="_blank">text</a>` | External link (auto `rel="noopener noreferrer"`) |
+| `<span class="custom-span" data-meno-span="true">text</span>` | Class-based styling hook (pair with component `css`) |
+| `<br>` | Line break |
+
+Example — span-highlighted heading:
+```json
+"title": "Everything you need to build <span class=\"custom-span\" data-meno-span=\"true\">professional</span> website"
+```
+Companion CSS on the receiving component (e.g. `Heading.json` `css` field):
+```css
+h1 .custom-span, h2 .custom-span, h3 .custom-span { color: var(--h-span); }
+```
+
+**Always include `data-meno-span="true"`** on styled spans so the editor round-trips cleanly. Allowed link protocols: `http:`, `https:`, `mailto:`, `tel:`, plus `/path` and `#anchor` — other schemes are dropped.
+
+**Only works on `rich-text` props.** Plain `string` props HTML-escape their values — `<strong>` would render as literal text. Full allowlist: `packages/core/lib/shared/richtext/tiptapToHtml.ts` (`RICH_TEXT_ALLOWED_TAGS`, `RICH_TEXT_ALLOWED_ATTRS`).
 
 ---
 
 ## Template Variables
 
 - `{{propName}}` - Component props from interface
-- `{{item.field}}` - List item context (or custom name via `itemAs`)
-- `{{itemIndex}}`, `{{itemFirst}}`, `{{itemLast}}` - List loop helpers
-- `{{cms.field}}` - CMS template pages only (pages/templates/)
+- `{{item.field}}` - List item context (or custom name via `itemAs`, e.g. `{{post.title}}`)
+- `{{itemIndex}}`, `{{itemFirst}}`, `{{itemLast}}` - List loop helpers (prefix matches `itemAs`, e.g. `{{postIndex}}`)
+- `{{cms.field}}` - CMS template pages only (`templates/*.json` with `meta.source: "cms"`)
+- `{{isEditorMode}}` - `true` in editor, `false` in production build
+
+### Expressions in templates
+
+Templates support a full expression syntax, not just variable lookups. Use it anywhere a string template is accepted (attributes, children text, `if`, style mapping values):
+
+- **Ternary**: `{{item.featured ? "is-featured" : ""}}`
+- **Comparisons**: `==`, `!=`, `===`, `!==`, `<`, `>`, `<=`, `>=` — `{{itemIndex > 0 ? "not-first" : "first"}}`
+- **Logical**: `&&`, `||`, `!` — `{{item.active && item.visible ? "show" : "hide"}}`
+- **Arithmetic**: `+`, `-`, `*`, `/`, `%` — `{{0.4 + itemIndex * 0.2}}` (e.g. staggered animation delays)
+- **Property access**: dot notation — `{{item.author.name}}`
 
 ---
 
-## Style Mappings
+## Property Mappings (`_mapping`)
 
-Use `_mapping` to vary styles based on props:
+`_mapping` transforms **one** property value based on a component prop. It is a value-level transform, not a general-purpose variable system. Four forms exist — each works in exactly one place:
+
+| Form | Where it goes | Example target | Notes |
+|------|---------------|----------------|-------|
+| Style | Any CSS property inside `style.base/tablet/mobile` | `backgroundColor`, `fontSize` | Works on `node`, `component`, `link`, `embed`, `locale-list` |
+| Link | `href` of a `type: "link"` node | `href` | `values` optional — omit for passthrough of a `type: "link"` prop |
+| HTML | `html` of a `type: "embed"` node | `html` | `values` optional — omit for passthrough of a string prop |
+| Boolean | `if` on any conditional node (incl. `list`) | `if` | `values` must be booleans |
+
+Shape:
+```json
+{ "_mapping": true, "prop": "<propName>", "values": { "<propValue>": "<output>" } }
+```
+
+Example — style mapping on `backgroundColor`:
 ```json
 "backgroundColor": {
   "_mapping": true,
@@ -198,6 +314,16 @@ Use `_mapping` to vary styles based on props:
   "values": { "primary": "var(--primary)", "secondary": "var(--secondary)" }
 }
 ```
+
+### Where `_mapping` does NOT work — use `{{propName}}` templates instead
+`_mapping` is only valid in the four places above. Everywhere else that accepts a string, use `{{propName}}` templates:
+- Component-instance `props` values → `"props": { "icon": "{{icon}}" }`
+- `tag` (HTML element name) → `"tag": "{{headingLevel}}"`
+- `attributes.*` (e.g., `src`, `alt`, `data-*`) → `"attributes": { "src": "{{image}}" }`
+- `children` text → `"children": "{{title}}"`
+- Inside `style` on a `type: "list"` node → `list` has no `style`; wrap it in a `type: "node"` parent.
+- `interface` prop `default` → defaults must be literal values; no mappings or templates.
+- `type: "slot"` → slots have no mappable fields.
 
 ---
 
@@ -211,6 +337,7 @@ CSS pseudo-selectors and JS-triggered states via `interactiveStyles`:
   "tag": "button",
   "interactiveStyles": [
     {
+      "name": "on hover",
       "prefix": "",
       "postfix": ":hover",
       "style": { "base": { "backgroundColor": "var(--primary-dark)" } }
@@ -218,6 +345,13 @@ CSS pseudo-selectors and JS-triggered states via `interactiveStyles`:
   ]
 }
 ```
+
+**Rule fields:**
+- `name` (optional) - Friendly label shown in the editor
+- `prefix` - CSS selector before the element class
+- `postfix` - CSS selector after the element class
+- `style` - Responsive style object (`base`, `tablet`, `mobile`)
+- `previewProp` (optional) - Name of a boolean prop that, when `true` in the editor, renders this rule for preview
 
 ### How prefix/postfix Work
 CSS generated: `{prefix}.element-class{postfix}`
@@ -336,12 +470,201 @@ Use in styles via `var()`: `{ "fontSize": "var(--h1-fs)" }`
 
 ---
 
+## Layout & Base Component
+
+Setting `baseComponent` in `project.config.json` wraps every page's `root` inside that component's slot. This is how real projects share nav, footer, and global wrappers across pages.
+
+**project.config.json:**
+```json
+{ "baseComponent": "Layout" }
+```
+
+**components/Layout.json** (minimal):
+```json
+{
+  "component": {
+    "structure": {
+      "type": "node",
+      "tag": "div",
+      "children": [{ "type": "slot" }]
+    },
+    "interface": {}
+  }
+}
+```
+
+**pages/index.json** using it:
+```json
+{
+  "root": {
+    "type": "component",
+    "component": "Layout",
+    "children": [
+      { "type": "component", "component": "HeroSection" }
+    ]
+  },
+  "meta": { "title": "Home", "description": "..." }
+}
+```
+
+See `.claude/docs/meno/examples.md` for a full Layout with navigation and footer.
+
+---
+
+## Page Meta
+
+`meta` defines per-page SEO and behavior. All fields optional except the page needs a title for SEO output.
+
+```json
+"meta": {
+  "title": "About",
+  "description": "Short SEO description.",
+  "keywords": "one, two, three",
+  "ogTitle": "About Us",
+  "ogDescription": "Social share description.",
+  "ogImage": "/images/og-about.webp",
+  "ogType": "website",
+  "slugs": { "en": "/about", "pl": "/o-nas" },
+  "source": "cms",
+  "draft": false,
+  "libraries": { "js": [{ "url": "/libraries/analytics.js", "mode": "defer" }] },
+  "customCode": {
+    "head": "<meta name=\"robots\" content=\"index,follow\">",
+    "bodyStart": "",
+    "bodyEnd": ""
+  }
+}
+```
+
+- `source` — `"static"` (default) or `"cms"` (template page rendering one URL per CMS item)
+- `slugs` — per-locale URL overrides; enables auto-generated `hreflang` and `<link rel="canonical">`
+- `draft` — `true` excludes the page from the build
+- `customCode` — raw HTML injected into `<head>`, body start, or body end
+- Any string field may be an `_i18n` object (see Locales & i18n)
+
+`og:*`, `<link rel="canonical">`, and `<link rel="alternate" hreflang>` tags are emitted automatically from `siteUrl` + `i18n.locales` + `slugs`.
+
+---
+
+## Locales & i18n
+
+Declare locales in `project.config.json`:
+
+```json
+"i18n": {
+  "defaultLocale": "en",
+  "locales": [
+    { "code": "en", "name": "EN", "nativeName": "English", "langTag": "en-US" },
+    { "code": "pl", "name": "PL", "nativeName": "Polski", "langTag": "pl-PL" }
+  ]
+}
+```
+
+**`_i18n` value objects** — any string meta field or prop value can be replaced by an object with translations:
+
+```json
+"title": { "_i18n": true, "en": "Hello", "pl": "Cześć" }
+```
+
+Works in `meta.title`, `meta.description`, `meta.ogTitle`, component prop defaults, and page `root` string values.
+
+**Per-locale URLs** — use `meta.slugs`:
+```json
+"slugs": { "en": "/about", "pl": "/o-nas" }
+```
+
+**Language switcher** — use the `locale-list` node type (see Node Types section).
+
+---
+
+## Assets
+
+Static assets live next to your project files and are referenced by absolute path:
+
+- `/images/*` — `"src": "/images/hero.webp"`
+- `/fonts/*` — declare in `project.config.json` under `fonts`
+- `/videos/*` — `"src": "/videos/intro.mp4"`
+- `/libraries/*` — optional folder for local JS/CSS libraries (see libraries.md)
+
+`project.config.json.imageFormat` (`"webp"` default or `"avif"`) selects the output format for processed images during build.
+
+---
+
+## Multi-file Components
+
+A component may have up to three sibling files — all auto-linked by name:
+
+- `components/Foo.json` — structure + interface (required)
+- `components/Foo.js` — vanilla JS with auto-injected `el` and `props` (never use `export default` or `DOMContentLoaded`). See `.claude/docs/meno/javascript.md`.
+- `components/Foo.css` — plain CSS appended to the page stylesheet; use for rules you can't express via `style` (keyframes, pseudo-elements, etc.)
+
+Alternatively, inline CSS via a component-level `css` field:
+```json
+{ "component": { "css": "h1 .accent { background: linear-gradient(...); background-clip: text; }", "structure": {...} } }
+```
+
+---
+
 ## Project Structure
 
-- `pages/*.json` - Page definitions
-- `components/` - Component definitions organized by folder (see `components.config.json` for folder descriptions)
-- `colors.json` - CSS color variables
-- `project.config.json` - Project configuration
+### Files
+
+- `pages/*.json` - Page definitions (static pages)
+- `templates/*.json` - CMS template pages (`meta.source: "cms"`; one output URL per CMS item)
+- `cms/{collection}/*.json` - CMS item data (one file per item)
+- `components/` - Component definitions (flat, or organized into subfolders — naming is up to you)
+- `colors.json` - Color palette and themes
+- `enums.json` - Reusable `select` option sets (ships empty in blank projects)
+- `variables.json` - CSS design tokens (ships empty in blank projects)
+- `project.config.json` - Project-level configuration (see below)
+- `images/`, `fonts/`, `videos/`, `libraries/` - Static assets, referenced by absolute path
+
+`components.config.json` is **optional** and absent in blank projects; don't assume it exists. Discover components by reading the `components/` directory.
+
+### `project.config.json` fields
+
+- `siteUrl` — canonical site origin (used for canonical/OG URLs)
+- `baseComponent` — component wrapping every page root (e.g., `"Layout"`)
+- `i18n` — `{ defaultLocale, locales: [{ code, name, nativeName, langTag }] }`
+- `breakpoints` — `{ tablet: 1024, mobile: 540 }` (numbers = max-width)
+- `responsiveScales` — auto-scale multipliers per breakpoint for variables (fontSize, padding, margin, gap, borderRadius, size)
+- `fonts` — `[{ path, family, weight, weightMax?, style? }]`
+- `icons` — `{ favicon?, appleTouchIcon? }`
+- `libraries` — `{ js: [...], css: [...] }` (see libraries.md)
+- `csp` — Content-Security-Policy whitelist (`scriptSrc`, `styleSrc`, `fontSrc`, `connectSrc`, `frameSrc`, `imgSrc`)
+- `imageFormat` — `"webp"` or `"avif"`
+- `remConversion` — `{ enabled, baseFontSize }` converts px values to rem at build time
+- `customCode` — site-wide `{ head?, bodyStart?, bodyEnd? }` HTML injection (page-level overrides exist in `meta.customCode`)
+- `showMenoBadge` — boolean
+
+### `colors.json` shape
+
+```json
+{
+  "default": "light",
+  "palette": { "base-50": "#f9fafb", "base-900": "#111827" },
+  "themes": {
+    "light": { "label": "Light", "colors": { "text": "base-900", "bg": "base-50" } }
+  }
+}
+```
+
+Theme color values may reference palette keys (`"base-900"`) or be literal hex. In styles, use `var(--text)`, `var(--bg)`, etc. — CSS vars are generated from the active theme.
+
+---
+
+## Further Documentation
+
+Topic-specific guides live in `.claude/docs/meno/`. Read the one that matches your task:
+
+- `examples.md` - **Start here** for copy-ready patterns (Layout, Navigation, Hero, CMS template, Footer, FAQ with .js + .css)
+- `cms-schema.md` - Defining CMS collections, field types, template pages, `{{cms.field}}`
+- `javascript.md` - Component `.js` files, `defineVars`, data attributes, component communication
+- `libraries.md` - External JS/CSS libraries and CSP configuration
+- `redirects.md` - `_redirects` file for static hosting
+- `meno-filter.md` - Client-side filtering/sorting/search/pagination (data attributes)
+- `meno-filter-api.md` - MenoFilter JavaScript API ($eq, $gt, programmatic control)
+- `website-convert.md` - Converting imported `analysis.json` into Meno components/pages
 
 ---
 
